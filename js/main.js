@@ -3,7 +3,7 @@ var realTimeData;
 var updateLocation = 0;
 var pageTarget = 1;
 var validation = {
-    name: /^[a-zA-Z_ ]{3,10}$/,
+    name: /^[a-zA-Z_ ]{3,15}$/,
     category: /^[a-zA-Z_ ]{3,15}$/,
     price: /^[1-9][0-9]{0,5}$/,
     description: /^([a-zA-Z -(),.]{1,50})?$/
@@ -100,8 +100,8 @@ function display(index) {
                 <div class="col-2 ${rowColor}">${realTimeData[i].name}</div>
                 <div class="col-2 ${rowColor}">${realTimeData[i].category} </div>
                 <div class="col-2 price-width ${rowColor}">${realTimeData[i].price}</div>
-                <div class="col-3 col-md-4 ${rowColor}"><p>${realTimeData[i].description}</p></div>
-                <div class="col-2 col-md-1 ${rowColor} d-flex justify-content-around">
+                <div class="col-4  ${rowColor}"><p>${realTimeData[i].description}</p></div>
+                <div class="col-1  ${rowColor} d-flex flex-column  flex-md-row justify-content-md-around ">
                     <a href="#sameid" class='updatebtn' onclick='display(${i})'><i class="far fa-edit d"></i> </a>
                     <button class='delbtn' onclick='deleteProduct(${i})'><i class="fas fa-times"></i> </button>
                 </div>
