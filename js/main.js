@@ -17,7 +17,6 @@ var addBtn = document.getElementById("addBtn");
         usersData = JSON.parse(localStorage.getItem("users"))
         display()
         callpagination();
-
     }
 })();
 //for form floating action i use blur and focus
@@ -72,7 +71,7 @@ function clearAlert() {
 }
 // get data,display,set to update and delete 
 function getData() {
-    if (validationPassTesting()) {
+    if (true) {
         user = {
             name: inputs[0].value,
             category: inputs[1].value,
@@ -94,7 +93,10 @@ function display(index) {
     for (var i = (pageTarget - 1) * 5; i < (pageTarget * 5); i++) { //to loop for just 5 member
         if (i % 2 != 0) { rowColor = "bg-lightgary"; } else { rowColor = "bg-white"; } //to color the bg for each cell
         if (i < realTimeData.length) { // for last pagination if not contain 5 member to avoid error
-            cartona += `
+            if (pageTarget == 0 && realTimeData.length == 0) {
+                cartona = ""
+            } else {
+                cartona += `
             <div class="row ">
                 <div class="col-1 ${rowColor}">${i + 1}</div>
                 <div class="col-2 ${rowColor}">${realTimeData[i].name}</div>
@@ -106,7 +108,8 @@ function display(index) {
                     <button class='delbtn' onclick='deleteProduct(${i})'><i class="fas fa-times"></i> </button>
                 </div>
             </div>`
-            if (index == i) { cartona += setDataToUpdate(i) } //for display data in update row after the selected element
+                if (index == i) { cartona += setDataToUpdate(i) } //for display data in update row after the selected element
+            }
         }
     }
     document.getElementById("tableBody").innerHTML = cartona;
@@ -139,14 +142,22 @@ function setDataToUpdate(index) {
     return container;
 }
 function deleteProduct(index) {
+    let Confirm = confirm("are you sure to delete")
+    if (Confirm == true) {
+    }
     usersData.splice(index, 1)
     if (realTimeData.length % 5 == 0) {
         pageTarget = realTimeData.length / 5;
+    }
+    if (realTimeData.length == 0) {
+        hideShowBtn.innerHTML = "Hide Record"
+        hideShow()
     }
     realTimeData = usersData
     localStorage.setItem("users", JSON.stringify(usersData))
     display()
     callpagination()
+
 }
 function updateProduct(index) {
     var updateInput = document.querySelectorAll(".updatefield")
@@ -228,7 +239,8 @@ function callpagination() {
 }
 // hide and show record table 
 
-hideShowBtn.onclick = function () {
+hideShowBtn.onclick = hideShow
+function hideShow() {
     var displayTable = document.querySelector("#table")
     if (hideShowBtn.innerHTML == "Hide Record") {
         displayTable.classList.add("d-none")
