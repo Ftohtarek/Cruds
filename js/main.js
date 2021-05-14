@@ -3,8 +3,8 @@ var realTimeData;
 var updateLocation = 0;
 var pageTarget = 1;
 var validation = {
-    name: /^[a-zA-Z_ ]{3,15}$/,
-    category: /^[a-zA-Z_ ]{3,15}$/,
+    name: /^[a-zA-Z _]{3,20}$/,
+    category: /^[a-zA-Z _]{3,20}$/,
     price: /^[1-9][0-9]{0,5}$/,
     description: /^([a-zA-Z -(),.]{1,50})?$/
 }
@@ -71,7 +71,7 @@ function clearAlert() {
 }
 // get data,display,set to update and delete 
 function getData() {
-    if (true) {
+    if (validationPassTesting()) {
         user = {
             name: inputs[0].value,
             category: inputs[1].value,
@@ -93,6 +93,8 @@ function display(index) {
     for (var i = (pageTarget - 1) * 5; i < (pageTarget * 5); i++) { //to loop for just 5 member
         if (i % 2 != 0) { rowColor = "bg-lightgary"; } else { rowColor = "bg-white"; } //to color the bg for each cell
         if (i < realTimeData.length) { // for last pagination if not contain 5 member to avoid error
+            console.log(pageTarget)
+            console.log(realTimeData.length)
             if (pageTarget == 0 && realTimeData.length == 0) {
                 cartona = ""
             } else {
